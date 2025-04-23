@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <title>Formulario con jQueryUI</title>
+  <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      display: flex;
+      gap: 20px;
+    }
+    .formulario {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .columna-resultados {
+      border-left: 25px solid #ccc;
+      padding-left: 50px;
+    }
+
+  </style>
+  <table></table>
+</head>
+<body>
+
+  <div class="formulario">
+  	<h3>Datos:</h3>
+    <label>Nombre:<br>
+      <input type="text" id="nombre" />
+    </label>
+    <label>Apellido:<br>
+      <input type="text" id="apellido" />
+    </label>
+    <label>Fecha de Nacimiento:<br>
+      <input type="text" id="fechaNacimiento" />
+    </label>
+    <button id="generarMensaje">Generar Mensaje</button>
+  </div>
+
+  <div class="columna-resultados">
+    <h3>Datos Ingresados:</h3>
+    <ul id="listaResultados"></ul>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      // Activar Datepicker
+      $("#fechaNacimiento").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "1900:2025",
+        dateFormat: "yy-mm-dd"
+      });
+
+      // Evento del botón
+      $("#generarMensaje").click(function () {
+        const nombre = $("#nombre").val();
+        const apellido = $("#apellido").val();
+        const fecha = $("#fechaNacimiento").val();
+
+        // Mostrar en consola
+        console.log("Nombre:", nombre);
+        console.log("Apellido:", apellido);
+        console.log("Fecha de Nacimiento:", fecha);
+
+        // Agregar a la lista
+        $("#listaResultados").append(`
+          <li><strong>Nombre:</strong> ${nombre}</li>
+          <li><strong>Apellido:</strong> ${apellido}</li>
+          <li><strong>Fecha de Nacimiento:</strong> ${fecha}</li>
+          <hr>
+        `);
+      });
+    });
+  </script>
+
+</body>
+</html>
