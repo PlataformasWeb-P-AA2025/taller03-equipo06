@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>Países con jQuery y AJAX</title>
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+<body>
+  <h1>Información de Países</h1>
+
+  <button id="obtenerInformacion">Obtener información</button>
+  <button id="limpiarInformacion">Limpiar información</button>
+
+  <div id="mensajeFinal"></div>
+
+  <script>
+    $(document).ready(function () {
+      const url = "https://pkgstore.datahub.io/core/country-codes/country-codes_json/data/616b1fb83cbfd4eb6d9e7d52924bb00a/country-codes_json.json";
+
+      $("#obtenerInformacion").click(function () {
+        $.ajax({
+          dataType: "json",
+          url: url,
+        }).then(function (data) {
+          for (let i = 0; i < data.length; i++) {
+            const pais = data[i];
+            $('#mensajeFinal').append(`
+              <div>
+                <p><b>Nombre corto en inglés (CLDR):</b> ${pais["CLDR display name"] || 'N/A'}</p>
+                <p><b>Capital (Geonames):</b> ${pais["Capital"] || 'N/A'}</p>
+                <p><b>Códigos FIPS PUB 10-4:</b> ${pais["FIPS"] || 'N/A'}</p>
+                <p><b>Código FIFA:</b> ${pais["FIFA"] || 'N/A'}</p>
+                <p><b>Continente (Geonames):</b> ${pais["Region Name"] || 'N/A'}</p>
+                <p><b>Idiomas (Geonames):</b> ${pais["Languages"] || 'N/A'}</p>
+                <p><b>Geoname ID:</b> ${pais["Geoname ID"] || 'N/A'}</p>
+                <p><b>Señal de vehículos internacional:</b> ${pais["International vehicle registration code"] || 'N/A'}</p>
+                <hr>
+              </div>
+            `);
+          }
+        });
+      });
+
+      $("#limpiarInformacion").click(function () {
+        $("#mensajeFinal").empty();
+      });
+    });
+  </script>
+</body>
+</html>
